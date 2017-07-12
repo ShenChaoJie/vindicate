@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+		xmlns:aop="http://www.springframework.org/schema/aop"  
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+				http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+    			http://www.springframework.org/schema/util 
+    			http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	<description>Shiro安全配置</description>
+
+    <!-- 自定义 过滤器 -->
+	<bean id="anyRoles" class="org.frame.shiro.filter.AnyRolesFilter"/>
+	<bean id="anyPerms" class="org.frame.shiro.filter.AnyPermsFilter"/>
+	
+ 	<!-- 配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login.htm" />
+		<property name="successUrl" value="/province/toQueryProvince.htm" />
+		<property name="unauthorizedUrl" value="/error/403.htm" />
+		<property name="filterChainDefinitions">
+			<value>
+			    /static/** = anon
+			    /error/** = anon
+			    /login* = anon
+			    <!-- /province/** = roles[admin] -->
+			    /province/** = anyRoles[admin,manager]
+			    <!-- /province/** = perms[add,权限列表] -->
+			    <!-- /province/** = anyPerms[add,权限列表] -->
+			    /** = authc
+			</value>
+		</property>
+		
+		<property name="filters">
+         <util:map>
+             <entry key="anyRoles" value-ref="anyRoles"></entry>
+             <entry key="anyPerms" value-ref="anyPerms"></entry>
+          </util:map>
+      </property>
+	</bean>
+
+	<!-- 自定义realm -->
+	<bean id="shiroDbRealm" class="org.frame.shiro.ShiroDbRealm">
+		<property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <property name="hashAlgorithmName" value="MD5"/> <!-- 加密算法的名称 -->
+                <!-- <property name="hashIterations" value="1"></property> --> <!-- 配置加密的次数 -->
+            </bean>
+        </property>
+	</bean>
+	
+	<!-- 自定义 redis缓存管理 -->
+	<bean id="redisCacheManager" class="org.frame.shiro.cache.RedisCacheManager">
+		<property name="redisManager" ref="redisManager"/>
+	</bean>
+	
+	<!-- 自定义 redis session管理 -->
+	<bean id="redisSessionDAO" class="org.frame.shiro.cache.RedisSessionDAO">
+		<property name="redisManager" ref="redisManager"/>
+	</bean>
+	
+	
+	<!-- 自定义 redis 管理 -->
+	<bean id="redisManager" class="org.frame.shiro.cache.RedisManager">
+		<property name="host" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+	</bean>
+	
+	<!-- ehCache缓存 -->
+	<!-- <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/> -->
+	
+	<!-- 用户授权信息缓存化 -->
+	<!-- <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="ehCacheManager"/>
+   		<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/> 
+    </bean> -->
+    
+    <!-- securityManager 安全管理  shiro核心部分- -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!--设置自定义realm -->
+		<property name="realm" ref="shiroDbRealm" />
+		<!-- session管理 -->
+		<property name="sessionManager" ref="sessionManager"/>
+		<!-- 基于ehCache来缓存用户认证信息和授权信息的实现 -->
+ 		<!-- <property name="cacheManager" ref="shiroCacheManager"/> -->
+ 		<!-- 基于redis 的缓存管理 -->
+ 		<property name="cacheManager" ref="redisCacheManager" />
+	</bean>
+	
+	<!-- 静态注入，相当于调用SecurityUtils.setSecurityManager(securityManager) -->
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager" />
+		<property name="arguments" ref="securityManager" />
+	</bean>
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	
+	<!-- shiro 相关注解 -->
+	<!-- <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+	    <property name="securityManager" ref="securityManager"/>
+	</bean> -->
+	
+	<!--配置shiro的sessionManager-->  
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">  
+    	<!-- 相隔多久检查一次session的有效性   -->
+	 	<property name="sessionValidationInterval" value="1800000"/>
+	 	<!-- session 有效时间为半小时 （毫秒单位）-->  
+		<property name="globalSessionTimeout" value="1800000"/>
+        <!-- 是否删除无效的session，默认也是开启 -->
+	    <property name="deleteInvalidSessions" value="true"/>
+	    <!-- sessionDAO -->
+        <property name="sessionDAO" ref="redisSessionDAO"/>  
+    </bean>
+	
+</beans>

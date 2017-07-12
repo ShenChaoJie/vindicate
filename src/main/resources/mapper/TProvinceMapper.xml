@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.frame.persistence.TProvinceMapper">
+    <resultMap id="BaseResultMap" type="org.frame.persistence.model.TProvince">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="pid" property="pid" jdbcType="INTEGER"/>
+        <id column="name" property="name" jdbcType="VARCHAR"/>
+        <id column="pname" property="pname" jdbcType="VARCHAR"/>
+        <id column="ctime" property="ctime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+    ID,PID,NAME,PNAME,CTIME
+    </sql>
+    
+    <select id="findByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_province
+        where name = #{name,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="findAll" resultMap="BaseResultMap" resultSetType="SCROLL_INSENSITIVE">
+        select
+        <include refid="Base_Column_List"/>
+        from pay_base.t_province
+    </select>
+    
+</mapper>

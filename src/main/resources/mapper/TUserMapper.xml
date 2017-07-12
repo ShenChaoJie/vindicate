@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.frame.persistence.TUserMapper">
+    <resultMap id="BaseResultMap" type="org.frame.persistence.model.TUser">
+        <id column="id" property="id" jdbcType="DECIMAL"/>
+        <id column="lname" property="lname" jdbcType="VARCHAR"/>
+        <id column="lps" property="lpswd" jdbcType="VARCHAR"/>
+        <id column="email" property="email" jdbcType="VARCHAR"/>
+        <id column="ctime" property="ctime" jdbcType="TIMESTAMP"/>
+        <id column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP"/>
+        <id column="status" property="status" jdbcType="DECIMAL"/>
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+    id,lname,lpswd,email,ctime,last_login_time,status
+    </sql>
+    
+    <select id="getUserByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where lname = #{username,jdbcType=VARCHAR}
+    </select>
+    
+</mapper>

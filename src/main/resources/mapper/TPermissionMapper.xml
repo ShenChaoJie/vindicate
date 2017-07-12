@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.frame.persistence.TPermissionMapper">
+    <resultMap id="BaseResultMap" type="org.frame.persistence.model.TPermission">
+        <id column="id" property="id" jdbcType="DECIMAL"/>
+        <id column="url" property="url" jdbcType="VARCHAR"/>
+        <id column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+    id,url,name
+    </sql>
+    <sql id="permission_name_set">
+    name
+    </sql>
+    
+    <select id="findPermissionByUserId" parameterType="java.lang.Integer" resultType="java.lang.String" >
+        select
+        <include refid="permission_name_set"/>
+        from t_permission a 
+        left join t_role_permission b on a.id = b.permission_id
+        left join t_user_role c on b.role_id = c.role_id
+        where c.user_id = #{userId,jdbcType=DECIMAL}
+    </select>
+    
+</mapper>

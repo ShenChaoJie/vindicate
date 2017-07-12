@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.frame.persistence.TRoleMapper">
+    <resultMap id="BaseResultMap" type="org.frame.persistence.model.TRole">
+        <id column="id" property="id" jdbcType="DECIMAL"/>
+        <id column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <id column="role_type" property="roleType" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+    id,role_name,role_type
+    </sql>
+    
+    <sql id="role_name_set">
+    role_name
+    </sql>
+    
+    <select id="findRoleByUserId" parameterType="java.lang.Integer" resultType="java.lang.String" >
+        select
+        <include refid="role_name_set"/>
+        from t_role a left join t_user_role b on a.id = b.role_id 
+        where b.user_id = #{userId,jdbcType=DECIMAL}
+    </select>
+    
+</mapper>

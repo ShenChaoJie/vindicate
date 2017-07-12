@@ -1,0 +1,13 @@
+<ehcache updateCheck="false" name="shiroCache">
+ 	<diskStore path="java.shm.tmpdir" />
+ 	<cache 
+ 	    name="shiro-activeSessionCache" 
+ 	    maxElementsInMemory="10000"
+ 		overflowToDisk="true" 
+ 		eternal="true" 
+ 		timeToLiveSeconds="0"
+ 		timeToIdleSeconds="0" 
+ 		diskPersistent="true"
+ 		diskExpiryThreadIntervalSeconds="600" 
+ 		/>   
+</ehcache>
