@@ -33,7 +33,7 @@ public @Data class ProvinceController{
 	
 	@RequestMapping("/queryProvince.htm")
 	@ResponseBody
-	public String queryProvince(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public void queryProvince(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Map<String,String> para = new HashMap<String,String>();
 		
 		//request.getParameterMap() 转换成为正常使用的 Map<String,String>
@@ -55,15 +55,15 @@ public @Data class ProvinceController{
 			para.put(key+"",value);
 		}
 		PageBar page = provinceService.queryProvince(para);
-		/*try {
+		try {
 			response.setContentType("text/plain;charset=utf-8");
 			PrintWriter responseStream = response.getWriter();
 			responseStream.println(JSONArray.fromObject(page));
 			responseStream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
-		return page.toString();
+		}
+		//return page.toString();
 	}
 	
 	

@@ -469,11 +469,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		</dependency>
 
 		<!-- servlet jar?-->
-		<!-- <dependency>
-			<groupId>servlet-api</groupId>
+		<dependency>
+			<groupId>org.apache.web</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>1.0</version>
-		</dependency> -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.web</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>1.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>standard</groupId>
@@ -490,7 +495,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-				 	<compilerVersion>1.8</compilerVersion> 
 					<source>1.8</source>
 					<target>1.8</target>
 					<encoding>UTF-8</encoding>
