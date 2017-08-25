@@ -13,7 +13,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -586,4 +588,28 @@ public class MyUtil {
 		return sb.toString();
 	}
     
+	public static void main(String[] args) {
+		String str1 = "1,2,3,4,5";
+		String str2 = "3,4,5,6,7";
+		String[] arr1 = str1.split(",");
+		String[] arr2 = str2.split(",");
+		Set<String> set1 = new HashSet<String>();
+		for(String str:arr1){
+			set1.add(str);
+		}
+		Set<String> set2 = new HashSet<String>();
+		for(String str:arr2){
+			set2.add(str);
+		}
+		System.out.println(set1);
+		System.out.println(set2);
+		//set1.retainAll(set2);
+		set2.removeAll(set1);
+		System.out.println(set2);
+		
+	
+		
+		
+		
+	}
 }

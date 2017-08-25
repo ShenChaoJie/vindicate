@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,6 +50,44 @@ public class StringUtil {
 		}
 		return result;
 	}
+	
+	public static String getMapValue(Map<String,Object> map,String key){
+		Object value = map.get(key);
+		if(value!=null){
+			return value.toString();
+		}
+		return null;
+	}
+	
+	public static boolean isNotBlank(String... strArr){
+		if(strArr.length>0){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public static String getStringValue(Object obj){
+		if(obj==null){
+			return "";
+		}else{
+			return String.valueOf(obj).equals("null")?"":String.valueOf(obj);
+		}
+	}
+	
+	public static Integer getIntValue(Object obj){
+		if(obj==null){
+			return null;
+		}else{
+			String str = String.valueOf(obj).equals("null")?"":String.valueOf(obj);
+			if(!"".equals(str)){
+				return Integer.parseInt(str);
+			}
+		}
+		
+		return null;
+	} 
+	
 	
 	
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mvs</groupId>
 	<artifactId>vindicate</artifactId>
@@ -8,8 +8,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 	<name>vindicate Maven Webapp</name>
 	<packaging>war</packaging>
 	<description>spring4.3.2,Mybatis3.4.2,shiro</description>
+	<!-- <url>http://maven.apache.org</url> -->
 
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>enersgysh</id>
 			<name>enersgysh Maven</name>
@@ -26,7 +27,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<name>enersgysh Releases</name>
 			<url>http://192.168.1.251:8081/nexus/content/repositories/releases</url>
 		</repository>
-	</distributionManagement>
+	</distributionManagement> -->
 
 	<dependencies>
 		<dependency>
@@ -51,7 +52,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<version>1.0</version>
 		</dependency>
 
-		<!-- 链接池-->
+		<!-- 链接池 -->
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
@@ -64,7 +65,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<version>2.1_3</version>
 		</dependency>
 
-		<!-- commons jar�?-->
+		<!-- commons jar�? -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
@@ -140,7 +141,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>commons-pool2</artifactId>
 			<version>2.4.2</version>
 		</dependency>
-		
+
 
 		<!-- xml解析 -->
 		<dependency>
@@ -177,28 +178,28 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.8.3</version>
 		</dependency>
-		
+
 		<dependency>
-			  <groupId>org.codehaus.jackson</groupId>
-			  <artifactId>jackson-core-asl</artifactId>
-			  <version>1.9.13</version>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.13</version>
 		</dependency>
 		<dependency>
-			  <groupId>org.codehaus.jackson</groupId>
-			  <artifactId>jackson-core-lgpl</artifactId>
-			  <version>1.9.13</version>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-lgpl</artifactId>
+			<version>1.9.13</version>
 		</dependency>
 		<dependency>
-			  <groupId>org.codehaus.jackson</groupId>
-			  <artifactId>jackson-mapper-asl</artifactId>
-			  <version>1.9.13</version>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
 		</dependency>
 		<dependency>
-			  <groupId>org.codehaus.jackson</groupId>
-			  <artifactId>jackson-mapper-lgpl</artifactId>
-			  <version>1.9.13</version>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-lgpl</artifactId>
+			<version>1.9.13</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>json-lib</groupId>
 			<artifactId>json-lib</artifactId>
@@ -230,14 +231,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>lombok</artifactId>
 			<version>1.16.8</version>
 		</dependency>
-		
-		<!-- memcache 缓存 -->
-		<!-- <dependency>
-		  <groupId>memcached</groupId>
-		  <artifactId>memcached</artifactId>
-		  <version>2.5</version>
-		</dependency> -->
-		
+
 		<!-- mysql数据驱动 -->
 		<dependency>
 			<groupId>mysql-connector-java</groupId>
@@ -356,59 +350,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			</exclusions>
 		</dependency>
 		
-		<!-- dubbo zookeeper相关 -->
-		<!-- <dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>dubbo</artifactId>
-			<version>2.5.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.netty</groupId>
-			<artifactId>netty</artifactId>
-			<version>3.2.5.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.mina</groupId>
-			<artifactId>mina-core</artifactId>
-			<version>1.1.7</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>19.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<version>3.3.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.sgroschupf</groupId>
-			<artifactId>zkclient</artifactId>
-			<version>0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>3.15.0-GA</version>
-		</dependency>
-		
-		<dependency>
-		  <groupId>slf4j-log4j12</groupId>
-		  <artifactId>slf4j-log4j12</artifactId>
-		  <version>1.0</version>
-		</dependency>
-		<dependency>
-		  <groupId>org.eclipse.persistence</groupId>
-		  <artifactId>javax.persistence</artifactId>
-		  <version>2.0.0</version>
-		</dependency> -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
-		
+
 		<!-- shiro 安全框架 -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
@@ -440,20 +387,20 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.1</version>
 		</dependency>
-		
+
 		<!-- redis 相关 -->
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>2.9.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-core</artifactId>
 			<version>2.4.3</version>
 		</dependency>
-		
+
 
 		<!-- 处理文件相关 excel docx -->
 		<dependency>
@@ -461,14 +408,14 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>poi</artifactId>
 			<version>3.8-beta3-20110606</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>poi-ooxml</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.8-beta3-20110606</version>
 		</dependency>
 
-		<!-- servlet jar?-->
+		<!-- servlet jar? -->
 		<dependency>
 			<groupId>org.apache.web</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -485,6 +432,14 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>standard</artifactId>
 			<version>1.0</version>
 		</dependency>
+		
+		<!-- elastic -->
+		<!-- <dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>5.4.3</version>
+		</dependency> -->
+		
 	</dependencies>
 
 	<build>
@@ -493,43 +448,45 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 				<!-- 编译插件 -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.0</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 	<properties>
+		<project.java.version>1.8</project.java.version>
 		<!-- 文件拷贝时的编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- 编译时的编码 -->
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 	</properties>
-	
+
 	<profiles>
 		<profile>
 			<!-- 测试环境 -->
-			<id>test</id> 
+			<id>test</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<build> 
-              <filters> 
-                  <filter>src/main/filter/test.properties</filter> 
-              </filters> 
-              <resources> 
-                  <resource> 
-                      <directory>src/main/resources</directory> 
-                      <filtering>true</filtering> 
-                  </resource> 
-              </resources> 
-            </build> 
+			<build>
+				<filters>
+					<filter>src/main/filter/test.properties</filter>
+				</filters>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+			</build>
 		</profile>
-		
-   </profiles>        
+
+	</profiles>
 
 </project>

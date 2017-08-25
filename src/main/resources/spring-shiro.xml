@@ -23,6 +23,7 @@
 			    /static/** = anon
 			    /error/** = anon
 			    /login* = anon
+			    /index.jsp = anon
 			    <!-- /province/** = roles[admin] -->
 			    /province/** = anyRoles[admin,manager]
 			    <!-- /province/** = perms[add,权限列表] -->

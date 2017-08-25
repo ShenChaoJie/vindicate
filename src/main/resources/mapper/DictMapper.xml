@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.frame.persistence.DictMapper">
+
+    <select id="findByDictTitleOrderByDictValue" resultType="java.util.Map" parameterType="java.lang.String">
+        select dict_name,dict_code
+        from t_dict t
+        where dict_type_code = #{dictType,jdbcType=VARCHAR}
+        order by dict_code asc
+    </select>
+</mapper>
