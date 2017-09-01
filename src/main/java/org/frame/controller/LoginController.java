@@ -43,6 +43,7 @@ public @Data class LoginController {
 	@RequestMapping(value="login.htm",method=RequestMethod.POST)
 	public String login(@RequestParam("lname") String lname,@RequestParam("lps") String lps){
 		try {
+			
 			SecurityUtils.getSubject().login(new UsernamePasswordToken(lname, lps));
 			
 			System.out.println("SESSION ID = " + SecurityUtils.getSubject().getSession().getId()); 

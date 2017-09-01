@@ -32,7 +32,8 @@ public class RedisManager {
 		if (jedisPool == null) {
 			// jedisPool = JedisUtil.getJedisPool();
 			//jedisPool = new JedisPool(new JedisPoolConfig(),host,port);
-			jedisPool = new JedisPool();
+			//jedisPool = new JedisPool();
+			jedisPool = new JedisPool("127.0.0.1",6379);
 		}
 	}
 

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.frame.persistence.UrlFilterMapper">
+    <resultMap id="BaseResultMap" type="org.frame.persistence.model.UrlFilter">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="name" property="name" jdbcType="VARCHAR"/>
+        <id column="url" property="url" jdbcType="VARCHAR"/>
+        <id column="roles" property="roles" jdbcType="VARCHAR"/>
+        <id column="permissions" property="permissions" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <insert id="createUrlFilter"  parameterType="org.frame.persistence.model.UrlFilter" >
+	    insert into sys_url_filter
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        id,
+	      </if>
+	      <if test="name != null" >
+	        name,
+	      </if>
+	      <if test="url != null" >
+	        url,
+	      </if>
+	      <if test="roles != null" >
+	        roles,
+	      </if>
+	       <if test="permissions != null" >
+	        permissions,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        #{id},
+	      </if>
+	      <if test="name != null" >
+	        #{name},
+	      </if>
+	      <if test="url != null" >
+	        #{url},
+	      </if>
+	      <if test="roles != null" >
+	        #{roles},
+	      </if>
+	      <if test="permissions != null" >
+	        #{permissions},
+	      </if>
+	    </trim>
+	</insert>
+    
+    <select id="findOne" resultType="org.frame.persistence.model.UrlFilter" parameterType="java.lang.Long">
+        select *
+        from sys_url_filter
+        where id = #{urlFilterId}
+    </select>
+    
+    <select id="findAll" resultType="org.frame.persistence.model.UrlFilter" >
+        select *
+        from sys_url_filter
+    </select>
+    
+    <update id="updateUrlFilter" parameterType="org.frame.persistence.model.UrlFilter">
+	   	update sys_url_filter
+	      <set >
+		      <if test="name != null" >
+		        name = #{name},
+		      </if>
+		      <if test="url != null" >
+		        url = #{url},
+		      </if>
+		      <if test="roles != null" >
+		        roles = #{roles},
+		      </if>
+		      <if test="url != null" >
+		        permissions = #{permissions},
+		      </if>
+	      </set>
+	    where id = #{id}
+    </update>
+    
+     
+   <delete id="deleteUrlFilter" parameterType="java.lang.Long">
+  		delete from sys_url_filter where id = #{urlFilterId}
+   </delete>
+    
+    
+</mapper>

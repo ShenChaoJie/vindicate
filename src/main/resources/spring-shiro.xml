@@ -13,7 +13,7 @@
 	<bean id="anyPerms" class="org.frame.shiro.filter.AnyPermsFilter"/>
 	
  	<!-- 配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致 -->
-	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+	<!-- <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login.htm" />
 		<property name="successUrl" value="/province/toQueryProvince.htm" />
@@ -24,10 +24,10 @@
 			    /error/** = anon
 			    /login* = anon
 			    /index.jsp = anon
-			    <!-- /province/** = roles[admin] -->
+			    /province/** = roles[admin]
 			    /province/** = anyRoles[admin,manager]
-			    <!-- /province/** = perms[add,权限列表] -->
-			    <!-- /province/** = anyPerms[add,权限列表] -->
+			    /province/** = perms[add,权限列表]
+			    /province/** = anyPerms[add,权限列表]
 			    /** = authc
 			</value>
 		</property>
@@ -38,7 +38,40 @@
              <entry key="anyPerms" value-ref="anyPerms"></entry>
           </util:map>
       </property>
-	</bean>
+	</bean> -->
+	<bean id="filterChainManager" class="org.frame.shiro.spring.CustomDefaultFilterChainManager">  
+	    <property name="loginUrl" value="/login.htm"/>  
+	    <property name="successUrl" value="/province/toQueryProvince.htm"/>  
+	    <property name="unauthorizedUrl" value="/error/403.htm"/>  
+	    <property name="customFilters">  
+	        <util:map>  
+	            <entry key="anyRoles" value-ref="anyRoles"></entry>
+            	<entry key="anyPerms" value-ref="anyPerms"></entry> 
+	        </util:map>  
+	    </property>  
+	    <property name="defaultFilterChainDefinitions">  
+	        <value>  
+	            /static/** = anon
+			    /error/** = anon
+			    /login* = anon
+			    /index.jsp = anon
+			    <!-- /province/** = roles[admin] -->
+			    <!-- /province/** = anyRoles[admin,manager] -->
+			   <!--  /province/** = perms[add,权限列表]
+			    /province/** = anyPerms[add,权限列表] -->
+			    /** = authc
+	        </value> 
+	    </property>  
+	</bean>   
+		
+	<bean id="filterChainResolver" class="org.frame.shiro.spring.CustomPathMatchingFilterChainResolver">
+        <property name="customDefaultFilterChainManager" ref="filterChainManager"/>
+    </bean>
+    
+     <!-- Shiro的Web过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
 
 	<!-- 自定义realm -->
 	<bean id="shiroDbRealm" class="org.frame.shiro.ShiroDbRealm">
@@ -89,10 +122,18 @@
 	</bean>
 	
 	<!-- 静态注入，相当于调用SecurityUtils.setSecurityManager(securityManager) -->
-	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	<!-- <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager" />
 		<property name="arguments" ref="securityManager" />
-	</bean>
+	</bean> -->
+	 <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	    <!-- <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager" /> -->
+        <property name="targetObject" ref="shiroFilter"/>
+        <property name="targetMethod" value="setFilterChainResolver"/>
+        <property name="arguments" ref="filterChainResolver"/>
+    </bean>
+	
+	
 	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 	
