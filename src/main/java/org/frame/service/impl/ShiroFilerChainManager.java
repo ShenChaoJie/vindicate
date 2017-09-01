@@ -43,18 +43,11 @@ public class ShiroFilerChainManager {
             String url = urlFilter.getUrl();
             //注册roles filter
             if (!StringUtils.isEmpty(urlFilter.getRoles())) {
-            	String[] roleArr = urlFilter.getRoles().split(",");
-            	for(String role:roleArr){
-            		filterChainManager.addToChain(url, "roles", role);
-            	}
+            	filterChainManager.addToChain(url, "anyRoles", urlFilter.getRoles());
             }
             //注册perms filter
             if (!StringUtils.isEmpty(urlFilter.getPermissions())) {
-            	String[] permArr = urlFilter.getPermissions().split(",");
-            	for(String perm:permArr){
-            		filterChainManager.addToChain(url, "perms", perm);
-            	}
-            	
+            	filterChainManager.addToChain(url, "anyPerms", urlFilter.getPermissions());
             }
         }
 
